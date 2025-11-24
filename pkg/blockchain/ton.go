@@ -25,16 +25,6 @@ func Transfer(receiverAddress string, amount uint64, comment string) error {
 		log.Printf("Unable to create wallet: %v\n", err)
 		return err
 	}
-	balance, err := w.GetBalance(context.TODO())
-	if err != nil {
-		log.Printf("Unable to get balance: %v\n", err)
-		return err
-	}
-	needTonAmount := amount + 100_000_000
-	if balance < needTonAmount {
-		log.Printf("balance is not enough: now %d but need %d\n", balance, needTonAmount)
-		return errors.New("balance is not enough")
-	}
 
 	simpleTransfer := wallet.SimpleTransfer{
 		Amount:  tlb.Grams(amount),
